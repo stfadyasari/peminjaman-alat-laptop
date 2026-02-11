@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h2 class="page-title">📋 CRUD Peminjaman & Pengembalian</h2>
+  <div>
+    <h2 class="page-title mb-1">CRUD Peminjaman & Pengembalian</h2>
+    <p class="text-muted mb-0">Memproses data pengajuan dari peminjam.</p>
+  </div>
 </div>
 
 <div class="card p-4">
@@ -166,3 +169,4 @@
   </div>
 </div>
 @endsection
+

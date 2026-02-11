@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Loan extends Model
 {
     protected $fillable = ['user_id','device_id','start_date','end_date','status','note','returned_at'];
+    protected $casts = [
+        'returned_at' => 'datetime',
+    ];
 
     public function user()
     {

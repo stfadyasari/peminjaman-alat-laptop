@@ -29,7 +29,7 @@
           <strong>CRUD Peminjaman</strong>
           <span class="badge bg-secondary float-end">{{ \App\Models\Loan::count() }}</span>
         </a>
-        <a href="{{ route('admin.loans.index') }}" class="list-group-item list-group-item-action py-3 px-4" style="border: 0; border-bottom: 1px solid #e5e7eb;">
+        <a href="{{ route('admin.returns.index') }}" class="list-group-item list-group-item-action py-3 px-4" style="border: 0; border-bottom: 1px solid #e5e7eb;">
           <i class="bi bi-arrow-counterclockwise" style="color: #8b5cf6; margin-right: 10px;"></i>
           <strong>Pengembalian</strong>
           <span class="badge bg-secondary float-end">{{ \App\Models\Loan::where('status','returned')->count() }}</span>

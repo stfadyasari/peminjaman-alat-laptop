@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Loan;
 use App\Models\Device;
+use App\Support\ActivityLogger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,11 @@ class LoanController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if (request()->routeIs('admin.*')) {
+            $loans = Loan::with(['user','device'])->latest()->paginate(20);
+            return view('admin.loans.index', compact('loans'));
+        }
+
         if ($user && $user->role === 'admin') {
             $loans = Loan::with(['user','device'])->paginate(20);
         } else if ($user && $user->role === 'petugas') {
@@ -41,6 +47,10 @@ class LoanController extends Controller
         $device = Device::find($data['device_id']);
         $device->status = 'reserved';
         $device->save();
+        ActivityLogger::log(
+            'loan.create',
+            'Membuat pengajuan peminjaman #'.$loan->id.' untuk alat #'.$device->id.' ('.$device->name.')'
+        );
         return redirect()->route('loans.index');
     }
 
@@ -51,6 +61,7 @@ class LoanController extends Controller
         $device = $loan->device;
         $device->status = 'borrowed';
         $device->save();
+        ActivityLogger::log('loan.approve', 'Menyetujui peminjaman #'.$loan->id.' alat #'.$device->id.' ('.$device->name.')');
         return back();
     }
 
@@ -61,6 +72,7 @@ class LoanController extends Controller
         $device = $loan->device;
         $device->status = 'available';
         $device->save();
+        ActivityLogger::log('loan.reject', 'Menolak peminjaman #'.$loan->id.' alat #'.$device->id.' ('.$device->name.')');
         return back();
     }
 
@@ -72,6 +84,7 @@ class LoanController extends Controller
         $device = $loan->device;
         $device->status = 'available';
         $device->save();
+        ActivityLogger::log('loan.return', 'Menandai pengembalian peminjaman #'.$loan->id.' alat #'.$device->id.' ('.$device->name.')');
         return back();
     }
 }

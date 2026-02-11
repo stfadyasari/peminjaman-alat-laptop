@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<h2 class="page-title">📝 Log Aktivitas</h2>
+<div class="mb-4">
+  <h2 class="page-title mb-1">Log Aktivitas</h2>
+  <p class="text-muted mb-0">Melihat aktivitas yang merekam semua kegiatan yang terjadi di sistem.</p>
+</div>
 
 <div class="card p-4">
   <div class="table-responsive">
@@ -36,3 +39,4 @@
   {{ $logs->links() }}
 </div>
 @endsection
+

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ReturnController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoanController;
@@ -33,6 +34,10 @@ Route::prefix('admin')->middleware([EnsureAdmin::class])->name('admin.')->group(
     Route::resource('devices', DeviceController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('loans', LoanController::class);
+    Route::resource('returns', ReturnController::class);
+    Route::post('loans/{loan}/approve', [LoanController::class,'approve'])->name('loans.approve');
+    Route::post('loans/{loan}/reject', [LoanController::class,'reject'])->name('loans.reject');
+    Route::post('loans/{loan}/return', [LoanController::class,'markReturned'])->name('loans.return');
     Route::get('logs', [ActivityLogController::class,'index'])->name('activity_logs.index');
 });
 

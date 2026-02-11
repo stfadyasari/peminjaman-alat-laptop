@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\ActivityLogger;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,7 +29,8 @@ class UserController extends Controller
             'role'=>'required'
         ]);
         $data['password'] = bcrypt($data['password']);
-        User::create($data);
+        $user = User::create($data);
+        ActivityLogger::log('user.create', 'Menambahkan user #'.$user->id.' ('.$user->name.', '.$user->role.')');
         return redirect()->route('admin.users.index');
     }
 
@@ -48,12 +50,16 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->password);
         }
         $user->update($data);
+        ActivityLogger::log('user.update', 'Mengubah user #'.$user->id.' ('.$user->name.', '.$user->role.')');
         return redirect()->route('admin.users.index');
     }
 
     public function destroy(User $user)
     {
+        $userId = $user->id;
+        $userName = $user->name;
         $user->delete();
+        ActivityLogger::log('user.delete', 'Menghapus user #'.$userId.' ('.$userName.')');
         return back();
     }
 }

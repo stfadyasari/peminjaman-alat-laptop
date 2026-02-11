@@ -147,7 +147,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.loans.index') }}" class="nav-link">
+            <a href="{{ route('admin.returns.index') }}" class="nav-link {{ request()->routeIs('admin.returns.*') ? 'active' : '' }}">
               <i class="bi bi-arrow-counterclockwise"></i> Pengembalian
             </a>
           </li>

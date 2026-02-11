@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use App\Models\Category;
+use App\Support\ActivityLogger;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -28,7 +29,8 @@ class DeviceController extends Controller
             'category_id'=>'nullable|exists:categories,id',
             'condition'=>'nullable',
         ]);
-        Device::create($data);
+        $device = Device::create($data);
+        ActivityLogger::log('device.create', 'Menambahkan alat #'.$device->id.' ('.$device->name.')');
         return redirect()->route('admin.devices.index');
     }
 
@@ -47,12 +49,16 @@ class DeviceController extends Controller
             'condition'=>'nullable',
         ]);
         $device->update($data);
+        ActivityLogger::log('device.update', 'Mengubah alat #'.$device->id.' ('.$device->name.')');
         return redirect()->route('admin.devices.index');
     }
 
     public function destroy(Device $device)
     {
+        $deviceId = $device->id;
+        $deviceName = $device->name;
         $device->delete();
+        ActivityLogger::log('device.delete', 'Menghapus alat #'.$deviceId.' ('.$deviceName.')');
         return back();
     }
 }
