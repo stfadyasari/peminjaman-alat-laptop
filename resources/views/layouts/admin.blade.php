@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Panel - Peminjaman Alat</title>
+    <title>Admin  - Peminjaman Alat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
@@ -114,7 +114,7 @@
       <div class="sidebar">
         <div class="sidebar-brand">
           <h4>📱 Peminjaman</h4>
-          <p>Admin Panel</p>
+          <p>Admin </p>
         </div>
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -165,7 +165,7 @@
       <div class="main-content">
         <!-- Topbar -->
         <div class="topbar">
-          <h2>Admin Panel</h2>
+          <h2>Admin </h2>
           <div class="topbar-right">
             <div class="user-info">
               <span><i class="bi bi-person-circle" style="font-size: 20px;"></i></span>
